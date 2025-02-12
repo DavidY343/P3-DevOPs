@@ -1,5 +1,9 @@
 import unittest
-from system import SistemaControlTemperatura
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from my_system import SistemaControlTemperatura
 
 class TestSistemaControlTemperatura(unittest.TestCase):
 
