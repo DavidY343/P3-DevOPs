@@ -1,0 +1,28 @@
+import pandas as pd
+
+# Lista de requisitos en formato de tabla
+requisitos = [
+    ["RF-01", "El controlador debe recibir I_TRef e I_TReal cada 2 segundos.", "F", "Verificar registros cada 2s.", "A", "Especificación del sistema"],
+    ["RF-02", "El sistema debe activar/desactivar la calefacción según la diferencia entre I_TRef e I_TReal.", "F", "Encendido cuando I_TReal < I_TRef - 0.5°C, apagado cuando I_TReal ≥ I_TRef.", "A", "Especificación del sistema"],
+    ["RF-03", "El sistema debe activar/desactivar la refrigeración según la diferencia entre I_TRef e I_TReal.", "F", "Encendido cuando I_TReal > I_TRef + 0.5°C, apagado cuando I_TReal ≤ I_TRef.", "A", "Especificación del sistema"],
+    ["RF-04", "El controlador debe verificar cada 2s el estado de los subsistemas a través de I_Error_SC e I_Error_SR.", "F", "Verificar logs de chequeo de errores cada 2s.", "A", "Especificación del sistema"],
+    ["RF-05", "Si un error persiste por más de 2s, el sistema debe intentar reiniciarse.", "F", "Registrar intentos de reinicio tras errores de 2s.", "A", "Especificación del sistema"],
+    ["RF-06", "El controlador debe operar en tres estados: Parado, Ejecución y Combate.", "F", "Verificar transiciones de estado correctas.", "A", "Especificación del sistema"],
+    ["RF-07", "En modo Parado, el controlador debe verificar cada 2s que los subsistemas están operativos.", "F", "Registro en logs del chequeo periódico en modo Parado.", "M", "Especificación del sistema"],
+    ["RF-08", "En modo Ejecución, el controlador debe mantener I_TReal dentro del rango ±0.5°C respecto a I_TRef.", "F", "Verificar cumplimiento del margen de temperatura.", "A", "Especificación del sistema"],
+    ["RF-09", "En modo Combate, el controlador debe mantener I_TReal en el rango ±0.5°C por el tiempo especificado.", "F", "Verificar cumplimiento del tiempo especificado.", "A", "Especificación del sistema"],
+    ["RF-10", "Si se detecta un error interno, el sistema debe actualizar la salida O_ERROR_SYS.", "F", "Verificar la actualización de O_ERROR_SYS ante fallos.", "A", "Especificación del sistema"],
+    ["RNF-01", "El sistema debe responder a cambios de temperatura con una latencia máxima de 500 ms.", "NF", "Medir latencia en condiciones de carga.", "A", "Requisitos de rendimiento"],
+    ["RNF-02", "El sistema debe registrar logs de estados y eventos relevantes.", "NF", "Verificar logs con información útil.", "M", "Buenas prácticas"],
+    ["RNF-03", "La interfaz de comunicación debe usar un protocolo estándar (ej. Modbus, MQTT).", "NF", "Verificar que el protocolo sea el especificado.", "A", "Especificación del sistema"],
+]
+
+# Crear un DataFrame de pandas
+df = pd.DataFrame(requisitos, columns=["ID", "Descripción", "Categoría", "Criterio de Aceptación", "Prioridad", "Fuente"])
+
+# Guardar en un archivo CSV
+csv_filename = "requisitos_sistema.csv"
+df.to_csv(csv_filename, index=False, encoding="utf-8")
+
+# Devolver el archivo generado
+csv_filename
